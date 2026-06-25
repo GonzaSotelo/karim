@@ -1,0 +1,57 @@
+.product-image {
+  height: 350px;
+  width: 100%;
+  object-fit: cover;
+}
+
+.card {
+  overflow: hidden;
+}
+
+.product-image {
+  height: 350px;
+  width: 100%;
+  object-fit: cover;
+  transition: 0.3s;
+}
+
+.card:hover .product-image {
+  transform: scale(1.05);
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.btn:hover {
+  transform: scale(1.03);
+}
+
+.whatsapp-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+
+  width: 60px;
+  height: 60px;
+
+  border-radius: 50%;
+
+  background: #25d366;
+  color: white;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 2rem;
+
+  text-decoration: none;
+
+  z-index: 999;
+}
+
+.whatsapp-button:hover {
+  transform: scale(1.1);
+  transition: 0.3s;
+}

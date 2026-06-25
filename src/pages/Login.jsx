@@ -9,7 +9,7 @@ function Login() {
     useState("");
 
   const navigate = useNavigate();
-  const ADMIN_USER = "admin";
+  const ADMIN_USER = "karim";
 const ADMIN_PASSWORD = "1234";
 
   const handleLogin = (e) => {

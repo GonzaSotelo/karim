@@ -55,3 +55,11 @@
   transform: scale(1.1);
   transition: 0.3s;
 }
+
+.hover-show {
+  display: none;
+}
+
+.position-relative:hover .hover-show {
+  display: block;
+}

@@ -1,91 +1,97 @@
-import { createContext, useState, useEffect } from "react";
+import {
+  createContext,
+  useState,
+  useEffect,
+} from "react";
+
+import { productService } from "../services/productService";
 
 export const ProductContext = createContext();
 
 export function ProductProvider({ children }) {
-  const [products, setProducts] = useState(() => {
-    const savedProducts =
-      localStorage.getItem("products");
+  const [products, setProducts] = useState([]);
 
-    return savedProducts
-      ? JSON.parse(savedProducts)
-      : [];
-  });
+  // Cargar productos desde Supabase
+  const loadProducts = async () => {
+    try {
+      const data =
+        await productService.getProducts();
+
+      setProducts(data);
+    } catch (error) {
+      console.error(
+        "Error al cargar productos:",
+        error
+      );
+    }
+  };
 
   useEffect(() => {
-    localStorage.setItem(
-      "products",
-      JSON.stringify(products)
-    );
-  }, [products]);
+    loadProducts();
+  }, []);
 
-  const addProduct = (product) => {
-    const newProduct = {
-      ...product,
-      id: Date.now(),
-    };
+  // Agregar producto
+  const addProduct = async (product) => {
+    try {
+      await productService.addProduct(product);
 
-    setProducts((prev) => [
-      ...prev,
-      newProduct,
-    ]);
-  };
-const deleteProduct = (id) => {
-  setProducts(
-    products.filter(
-      (product) => product.id !== id
-    )
-  );
-};
-
-const updateStock = (cart) => {
-  const updatedProducts = products.map((product) => {
-    const cartItems = cart.filter(
-      (item) => item.id === product.id
-    );
-
-    if (cartItems.length === 0) {
-      return product;
+      await loadProducts();
+    } catch (error) {
+      console.error(
+        "Error al agregar producto:",
+        error
+      );
     }
+  };
 
-    const newSizes = {
-      ...product.sizes,
-    };
+  // Eliminar producto
+  const deleteProduct = async (id) => {
+    try {
+      await productService.deleteProduct(id);
 
-    cartItems.forEach((item) => {
-      newSizes[item.selectedSize] =
-        Number(
-          newSizes[item.selectedSize]
-        ) - item.quantity;
-    });
+      await loadProducts();
+    } catch (error) {
+      console.error(
+        "Error al eliminar producto:",
+        error
+      );
+    }
+  };
 
-    return {
-      ...product,
-      sizes: newSizes,
-    };
-  });
+  // Editar producto
+  const updateProduct = async (
+    updatedProduct
+  ) => {
+    try {
+      const { id, ...product } =
+        updatedProduct;
 
-  setProducts(updatedProducts);
-};
+      await productService.updateProduct(
+        id,
+        product
+      );
 
-const updateProduct = (updatedProduct) => {
-  setProducts(
-    products.map((product) =>
-      product.id === updatedProduct.id
-        ? updatedProduct
-        : product
-    )
-  );
-};
+      await loadProducts();
+    } catch (error) {
+      console.error(
+        "Error al actualizar producto:",
+        error
+      );
+    }
+  };
+
+  // Más adelante lo adaptaremos a Supabase
+  const updateStock = () => {};
+
   return (
     <ProductContext.Provider
-value={{
-  products,
-  addProduct,
-  deleteProduct,
-  updateProduct,
-  updateStock,
-}}
+      value={{
+        products,
+        addProduct,
+        deleteProduct,
+        updateProduct,
+        updateStock,
+      }}
     >
       {children}
     </ProductContext.Provider>

@@ -12,7 +12,10 @@ import Footer from "./components/Footer";
 import "./index.css";
 import WhatsAppButton from "./components/WhatsAppButton";
 
+
+
 function App() {
+
   return (
     <BrowserRouter>
       <Navbar />

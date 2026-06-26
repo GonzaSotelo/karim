@@ -78,58 +78,41 @@ const handleAddToCart = () => {
             Categoría: {product.category}
           </p>
 
-          <div className="mb-3">
-            <strong>
-              Stock por talle
-            </strong>
-
-            <ul>
-              {Object.entries(
-                product.sizes
-              ).map(([size, stock]) => (
-                <li key={size}>
-                  {size}: {stock}
-                </li>
-              ))}
-            </ul>
-          </div>
-
+  
           <div className="mb-3">
 
-            <label className="form-label">
-              Seleccione talle
-            </label>
+       
 
-            <select
-              className="form-select"
-              value={selectedSize}
-              onChange={(e) =>
-                setSelectedSize(
-                  e.target.value
-                )
-              }
-            >
-              <option value="">
-                Seleccione
-              </option>
+          <div className="mb-3">
+  <label className="form-label">Seleccione talle</label>
 
-              {Object.entries(
-                product.sizes
-              ).map(([size, stock]) => (
-                <option
-                  key={size}
-                  value={size}
-                  disabled={
-                    Number(stock) <= 0
-                  }
-                >
-                  {size}
-                  {Number(stock) <= 0
-                    ? " - Sin stock"
-                    : ""}
-                </option>
-              ))}
-            </select>
+  <div className="d-flex gap-2 flex-wrap">
+    {Object.entries(product.sizes).map(([size, stock]) => {
+      const stockNum = Number(stock);
+
+      return (
+   <button
+  key={size}
+  type="button"
+  className={`btn ${
+    selectedSize === size
+      ? "btn-dark"
+      : "btn-outline-dark"
+  } ${stockNum <= 0 ? "opacity-50 text-decoration-line-through" : ""}`}
+  disabled={stockNum <= 0}
+  onClick={() => setSelectedSize(size)}
+>
+  {size}
+</button>
+      );
+    })}
+  </div>
+</div>
+{selectedSize && (
+  <p className="mt-2">
+    Talle seleccionado: <strong>{selectedSize}</strong>
+  </p>
+)}
 
           </div>
 

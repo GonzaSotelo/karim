@@ -49,7 +49,7 @@ const handleAddToCart = () => {
 
   return (
     <div className="col-md-4 mb-4">
-      <div className="card h-100 shadow-sm">
+      <div className="card h-100 shadow-sm product-card">
 
  <Link to={`/producto/${product.id}`}>
   <img
@@ -69,14 +69,14 @@ const handleAddToCart = () => {
 </Link>
 
           <p>
-            <strong>
-              ${Number(product.price).toLocaleString()}
-            </strong>
+       <h4 className="fw-bold text-success mb-3">
+  ${Number(product.price).toLocaleString()}
+</h4>
           </p>
 
-          <p>
-            Categoría: {product.category}
-          </p>
+         <p className="text-muted small mb-4">
+{product.category}
+</p>
 
   
           <div className="mb-3">
@@ -109,15 +109,17 @@ const handleAddToCart = () => {
   </div>
 </div>
 {selectedSize && (
-  <p className="mt-2">
-    Talle seleccionado: <strong>{selectedSize}</strong>
-  </p>
+  <div className="mt-3">
+    <span className="badge bg-dark fs-6">
+      Talle: {selectedSize}
+    </span>
+  </div>
 )}
 
           </div>
 
           <button
-            className="btn btn-primary w-100"
+            className="btn btn-dark w-100"
             onClick={handleAddToCart}
           >
             Agregar al carrito

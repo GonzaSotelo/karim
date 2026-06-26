@@ -19,6 +19,7 @@
   height: 350px;
   width: 100%;
   object-fit: cover;
+   transition:.4s;
 }
 
 .card {
@@ -28,4 +29,32 @@
 .card:hover .product-image {
   transform: scale(1.05);
   transition: 0.3s;
+}
+
+.product-card{
+    transition: .3s;
+    cursor:pointer;
+}
+
+.product-card:hover{
+    transform: translateY(-8px);
+    box-shadow:0 12px 25px rgba(0,0,0,.15);
+}
+
+.card-body{
+    display:flex;
+    flex-direction:column;
+}
+
+.card-body button{
+    margin-top:auto;
+}
+
+.product-detail-image{
+    border-radius:15px;
+    transition:.4s;
+}
+
+.product-detail-image:hover{
+    transform:scale(1.02);
 }

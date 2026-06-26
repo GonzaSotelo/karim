@@ -1,175 +1,95 @@
-import { useParams } from "react-router-dom";
-import { useContext, useState } from "react";
+import { useContext } from "react";
+import { useParams, Link } from "react-router-dom";
 import { ProductContext } from "../context/ProductContext";
-import { CartContext } from "../context/CartContext";
-import { Link } from "react-router-dom";
+import "./Home.css";
 
 function ProductDetail() {
   const { id } = useParams();
 
-  const { products } =
-    useContext(ProductContext);
-
-  const { addToCart } =
-    useContext(CartContext);
-
-  const [selectedSize, setSelectedSize] =
-    useState("");
+  const { products } = useContext(ProductContext);
 
   const product = products.find(
-    (p) => p.id === Number(id)
+    (p) => String(p.id) === id
   );
-
-  const relatedProducts = products.filter(
-  (p) =>
-    p.category === product?.category &&
-    p.id !== product?.id
-);
 
   if (!product) {
     return (
-      <div className="container mt-5">
-        <h2>Producto no encontrado</h2>
+      <div className="container mt-5 text-center">
+
+        <h2>
+          Producto no encontrado
+        </h2>
+
+        <Link
+          to="/productos"
+          className="btn btn-dark mt-3"
+        >
+          Volver
+        </Link>
+
       </div>
     );
   }
 
-  const handleAddToCart = () => {
-    if (!selectedSize) {
-      alert("Seleccione un talle");
-      return;
-    }
-
-    addToCart({
-      ...product,
-      selectedSize,
-    });
-  };
-
   return (
-    <div className="container mt-5">
+    <div className="container py-5">
 
       <div className="row">
 
-        <div className="col-md-6">
+        {/* Imagen */}
 
-          <img
-            src={product.image}
-            alt={product.name}
-            className="img-fluid rounded shadow"
-          />
+        <div className="col-lg-6">
+
+    <img
+  src={product.image}
+  alt={product.name}
+  className="img-fluid shadow product-detail-image"
+  style={{
+    width: "100%",
+    maxHeight: "650px",
+    objectFit: "cover",
+  }}
+/>
 
         </div>
 
-        <div className="col-md-6">
+        {/* Información */}
 
-          <h1>{product.name}</h1>
+        <div className="col-lg-6">
 
-          <h3 className="text-success">
-            $
-            {Number(
-              product.price
-            ).toLocaleString()}
-          </h3>
+          {product.featured && (
+            <span className="badge bg-danger mb-3">
+              ⭐ Producto Destacado
+            </span>
+          )}
 
-          <p>
-            Categoría:
-            {" "}
+          <h1 className="fw-bold">
+            {product.name}
+          </h1>
+
+          <p className="text-muted">
             {product.category}
           </p>
 
+          <h2 className="text-success fw-bold mb-4">
+            $
+            {Number(product.price).toLocaleString()}
+          </h2>
+
+          <hr />
+
           <h5>
-            Talles disponibles
+            Descripción
           </h5>
 
-          <select
-            className="form-select mb-3"
-            value={selectedSize}
-            onChange={(e) =>
-              setSelectedSize(
-                e.target.value
-              )
-            }
-          >
-            <option value="">
-              Seleccione talle
-            </option>
-
-            {Object.entries(
-              product.sizes
-            ).map(([size, stock]) => (
-              <option
-                key={size}
-                value={size}
-                disabled={
-                  Number(stock) <= 0
-                }
-              >
-                {size}
-                {" "}
-                ({stock} disponibles)
-              </option>
-            ))}
-          </select>
-
-          <button
-            className="btn btn-dark"
-            onClick={handleAddToCart}
-          >
-            Agregar al carrito
-          </button>
+      <p className="text-muted">
+  {product.description}
+</p>
 
         </div>
 
       </div>
-<hr className="my-5" />
 
-<h3 className="mb-4">
-  También te puede interesar
-</h3>
-
-<div className="row">
-
-  {relatedProducts.slice(0, 4).map(
-    (item) => (
-      <div
-        key={item.id}
-        className="col-md-3 mb-4"
-      >
-        <div className="card h-100 shadow-sm">
-
-          <img
-            src={item.image}
-            alt={item.name}
-            className="card-img-top product-image"
-          />
-
-          <div className="card-body">
-
-            <h5>{item.name}</h5>
-
-            <p>
-              $
-              {Number(
-                item.price
-              ).toLocaleString()}
-            </p>
-
-            <Link
-              to={`/producto/${item.id}`}
-              className="btn btn-dark w-100"
-            >
-              Ver producto
-            </Link>
-
-          </div>
-
-        </div>
-      </div>
-    )
-  )}
-
-</div>
     </div>
   );
 }

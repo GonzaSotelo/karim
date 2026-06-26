@@ -10,19 +10,25 @@ export const ProductContext = createContext();
 
 export function ProductProvider({ children }) {
   const [products, setProducts] = useState([]);
+  const [loadingProducts, setLoadingProducts] =
+    useState(true);
 
-  // Cargar productos desde Supabase
+  // Cargar productos
   const loadProducts = async () => {
     try {
+      setLoadingProducts(true);
+
       const data =
         await productService.getProducts();
 
       setProducts(data);
     } catch (error) {
       console.error(
-        "Error al cargar productos:",
+        "Error cargando productos:",
         error
       );
+    } finally {
+      setLoadingProducts(false);
     }
   };
 
@@ -38,27 +44,13 @@ export function ProductProvider({ children }) {
       await loadProducts();
     } catch (error) {
       console.error(
-        "Error al agregar producto:",
+        "Error agregando producto:",
         error
       );
     }
   };
 
-  // Eliminar producto
-  const deleteProduct = async (id) => {
-    try {
-      await productService.deleteProduct(id);
-
-      await loadProducts();
-    } catch (error) {
-      console.error(
-        "Error al eliminar producto:",
-        error
-      );
-    }
-  };
-
-  // Editar producto
+  // Actualizar producto
   const updateProduct = async (
     updatedProduct
   ) => {
@@ -74,22 +66,38 @@ export function ProductProvider({ children }) {
       await loadProducts();
     } catch (error) {
       console.error(
-        "Error al actualizar producto:",
+        "Error actualizando producto:",
         error
       );
     }
   };
 
-  // Más adelante lo adaptaremos a Supabase
+  // Eliminar producto
+  const deleteProduct = async (id) => {
+    try {
+      await productService.deleteProduct(id);
+
+      await loadProducts();
+    } catch (error) {
+      console.error(
+        "Error eliminando producto:",
+        error
+      );
+    }
+  };
+
+  // Lo adaptaremos cuando hagamos los pedidos
   const updateStock = () => {};
 
   return (
     <ProductContext.Provider
       value={{
         products,
+        loadingProducts,
+        loadProducts,
         addProduct,
-        deleteProduct,
         updateProduct,
+        deleteProduct,
         updateStock,
       }}
     >

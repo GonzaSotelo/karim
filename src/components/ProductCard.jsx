@@ -49,34 +49,42 @@ const handleAddToCart = () => {
 
   return (
     <div className="col-md-4 mb-4">
-      <div className="card h-100 shadow-sm product-card">
+      <div className="card product-card h-100">
 
  <Link to={`/producto/${product.id}`}>
-  <img
-    src={product.image}
-    className="card-img-top product-image"
-    alt={product.name}
-  />
+ <img
+  src={product.image}
+  className="card-img-top product-image"
+  alt={product.name}
+/>
+
+{product.featured && (
+  <span className="featured-badge">
+    ⭐ Destacado
+  </span>
+)}
 </Link>
 
-        <div className="card-body">
+        <div className="card-body d-flex flex-column">
 
         <Link
   to={`/producto/${product.id}`}
   className="text-decoration-none text-dark"
 >
-  <h5>{product.name}</h5>
+<h5 className="product-title">
+  {product.name}
+</h5>
+
+<span className="product-category">
+  {product.category}
+</span>
 </Link>
 
-          <p>
-       <h4 className="fw-bold text-success mb-3">
+     <p className="product-price">
   ${Number(product.price).toLocaleString()}
-</h4>
-          </p>
-
-         <p className="text-muted small mb-4">
-{product.category}
 </p>
+
+ 
 
   
           <div className="mb-3">
@@ -92,6 +100,7 @@ const handleAddToCart = () => {
 
       return (
    <button
+   
   key={size}
   type="button"
   className={`btn ${
@@ -119,7 +128,7 @@ const handleAddToCart = () => {
           </div>
 
           <button
-            className="btn btn-dark w-100"
+            className="btn btn-dark w-100 mt-auto"
             onClick={handleAddToCart}
           >
             Agregar al carrito

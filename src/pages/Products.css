@@ -1,0 +1,221 @@
+/* ========================= */
+/* PANEL DE FILTROS */
+/* ========================= */
+
+.filter-sidebar{
+
+    position:sticky;
+
+    top:100px;
+
+    border:none;
+
+    border-radius:20px;
+
+    background:#fff;
+
+    padding:25px;
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,.08);
+
+}
+
+.filter-sidebar h4{
+
+    font-weight:700;
+
+    margin-bottom:25px;
+
+}
+
+.filter-sidebar label{
+
+    font-weight:600;
+
+    color:#444;
+
+}
+
+.filter-sidebar .form-control,
+.filter-sidebar .form-select{
+
+    border-radius:12px;
+
+    padding:10px;
+
+}
+
+.filter-sidebar button{
+
+    border-radius:12px;
+
+}
+
+/*==========================
+        SIDEBAR
+==========================*/
+
+.filter-sidebar{
+
+    position:sticky;
+
+    top:95px;
+
+    border:none;
+
+    border-radius:20px;
+
+    padding:25px;
+
+    box-shadow:0 12px 30px rgba(0,0,0,.08);
+
+}
+
+.filter-title{
+
+    font-size:1rem;
+
+    font-weight:600;
+
+    margin-bottom:12px;
+
+    margin-top:20px;
+
+}
+
+.category-list{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:10px;
+
+}
+
+.category-btn{
+
+    background:#fff;
+
+    border:1px solid #ddd;
+
+    border-radius:12px;
+
+    padding:10px 15px;
+
+    text-align:left;
+
+    transition:.3s;
+
+    font-weight:500;
+
+}
+
+.category-btn:hover{
+
+    border-color:#111;
+
+    transform:translateX(5px);
+
+}
+
+.category-btn.active{
+
+    background:#111;
+
+    color:#fff;
+
+    border-color:#111;
+
+}
+
+/*==========================
+      PRODUCT CARD
+==========================*/
+
+.product-card{
+
+    overflow:hidden;
+
+    border:none;
+
+    border-radius:18px;
+
+    transition:.35s;
+
+    background:#fff;
+
+    box-shadow:
+        0 10px 25px rgba(0,0,0,.08);
+
+}
+
+.product-card:hover{
+
+    transform:translateY(-8px);
+
+    box-shadow:
+        0 18px 35px rgba(0,0,0,.15);
+
+}
+
+.product-image{
+
+    height:360px;
+
+    width:100%;
+
+    object-fit:cover;
+
+    transition:.4s;
+
+}
+
+.product-card:hover .product-image{
+
+    transform:scale(1.05);
+
+}
+
+.product-title{
+
+    font-size:1.15rem;
+
+    font-weight:600;
+
+    margin-bottom:4px;
+
+}
+
+.product-category{
+
+    color:#777;
+
+    font-size:.9rem;
+
+    margin-bottom:15px;
+
+}
+
+.product-price{
+
+    font-size:1.6rem;
+
+    font-weight:700;
+
+    color:#111;
+
+    margin-bottom:20px;
+
+}
+
+.product-card .btn{
+
+    border-radius:12px;
+
+    padding:12px;
+
+    font-weight:600;
+
+}

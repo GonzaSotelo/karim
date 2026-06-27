@@ -82,8 +82,8 @@ function ProductDetail() {
             Descripción
           </h5>
 
-      <p className="text-muted">
-  {product.description}
+<p className="text-muted">
+  {product.description || "Sin descripción."}
 </p>
 
         </div>

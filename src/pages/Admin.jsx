@@ -217,17 +217,7 @@ const cancelEdit = () => {
     </label>
 <div className="mb-3">
 
-  <label className="form-label">
-    Descripción
-  </label>
-
-  <textarea
-    className="form-control"
-    rows="4"
-    name="description"
-    value={product.description}
-    onChange={handleChange}
-  />
+ 
 
 </div>
     <input
@@ -240,6 +230,18 @@ const cancelEdit = () => {
     />
   </div>
 
+
+ <label className="form-label">
+    Descripción
+  </label>
+
+  <textarea
+    className="form-control"
+    rows="4"
+    name="description"
+    value={product.description}
+    onChange={handleChange}
+  />
   <div className="form-check mb-4">
 
     <input

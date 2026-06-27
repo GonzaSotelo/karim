@@ -65,6 +65,7 @@ const resetForm = () => {
     name: "",
     category: "",
     price: "",
+    description: "",
     featured: false,
     sizes: {
       S: "",
@@ -239,7 +240,7 @@ const cancelEdit = () => {
     className="form-control"
     rows="4"
     name="description"
-    value={product.description}
+    value={product.description || ""}
     onChange={handleChange}
   />
   <div className="form-check mb-4">
@@ -428,7 +429,7 @@ const cancelEdit = () => {
   className="form-control"
   rows="4"
   name="description"
-  value={product.description}
+  value={product.description || ""}
   onChange={handleChange}
 />
               <strong>
